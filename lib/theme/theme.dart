@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 final theme = ThemeData(
-  scaffoldBackgroundColor: scaffoldBackgroundColor,
+  scaffoldBackgroundColor: Colors.white,
   appBarTheme: _appBarTheme,
   inputDecorationTheme: _inputDecorationTheme,
   fontFamily: _fontFamily,
@@ -25,7 +25,7 @@ const _appBarTheme = AppBarTheme(
     color: textColor,
     fontFamily: _fontFamily,
   ),
-  backgroundColor: scaffoldBackgroundColor,
+  backgroundColor: Colors.white,
   elevation: 0,
 );
 
@@ -49,6 +49,7 @@ final _elevatedButtonTheme = ElevatedButtonThemeData(
 
 final _textButtonTheme = TextButtonThemeData(
   style: ButtonStyle(
+    overlayColor: MaterialStateProperty.all(Colors.transparent),
     minimumSize: MaterialStateProperty.all(const Size.fromHeight(60)),
     foregroundColor: MaterialStateProperty.all(primaryColor),
     backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -154,5 +155,6 @@ final _chipTheme = ChipThemeData(
 
 final _checkboxTheme = CheckboxThemeData(
   side: const BorderSide(color: primaryColor),
+  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
 );

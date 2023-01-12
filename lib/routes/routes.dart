@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:piton_assignment/features/auth/presentation/pages/log_in_page.dart';
 import 'package:piton_assignment/splash_screen.dart';
 
 class Routes {
@@ -12,6 +13,7 @@ class Routes {
   const Routes._();
 
   static const splash = "/splash";
+  static const logIn = "/log-in";
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -23,6 +25,16 @@ class Routes {
               )
             : MaterialPageRoute(
                 builder: (context) => const SplashScreen(),
+                settings: settings,
+              );
+      case logIn:
+        return Platform.isIOS
+            ? CupertinoPageRoute(
+                builder: (context) => const LogInPage(),
+                settings: settings,
+              )
+            : MaterialPageRoute(
+                builder: (context) => const LogInPage(),
                 settings: settings,
               );
       default:

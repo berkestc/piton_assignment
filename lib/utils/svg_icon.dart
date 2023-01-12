@@ -13,7 +13,7 @@ class SvgIcon extends StatelessWidget {
     required this.name,
     this.size,
     this.overrideTheme = true,
-    this.color = Colors.black,
+    this.color,
   });
 
   @override
@@ -24,7 +24,7 @@ class SvgIcon extends StatelessWidget {
         color: overrideTheme ? color : null,
         size: size,
       ),
-      size: size != null ? min(size!.height, size!.width) : null,
+      size: size != null ? max(size!.height, size!.width) : null,
       color: overrideTheme ? color : null,
     );
   }

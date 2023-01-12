@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piton_assignment/routes/routes.dart';
 import 'package:piton_assignment/theme/theme.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -26,6 +33,7 @@ class MyApp extends StatelessWidget {
         child: child,
       ),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Piton Assignment",
         theme: theme,
         initialRoute: Routes.splash,

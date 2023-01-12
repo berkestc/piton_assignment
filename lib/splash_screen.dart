@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:piton_assignment/constants/colors.dart';
+import 'package:piton_assignment/routes/routes.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -41,7 +42,7 @@ class _Buttons extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.logIn),
           child: const Text("Login"),
         ),
         TextButton(
