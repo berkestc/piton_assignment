@@ -5,45 +5,63 @@ import 'package:piton_assignment/custom/custom_text_form_field.dart';
 import 'package:piton_assignment/routes/routes.dart';
 import 'package:piton_assignment/utils/svg_icon.dart';
 
-class LogInPage extends StatelessWidget {
-  const LogInPage();
+class RegisterPage extends StatelessWidget {
+  const RegisterPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(20.w, (60 - ScreenUtil().statusBarHeight).h, 20.w, 40.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: SvgIcon(
-                name: "app_icon",
-                size: Size(100.w, 65.h),
-                color: primaryColor,
+      body: SizedBox(
+        height: ScreenUtil().screenHeight,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(20.w, (60 - ScreenUtil().statusBarHeight).h, 20.w, 40.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: SvgIcon(
+                  name: "app_icon",
+                  size: Size(100.w, 65.h),
+                  color: primaryColor,
+                ),
               ),
-            ),
-            SizedBox(height: 115.h),
-            Text(
-              "Welcome back!",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            SizedBox(height: 10.h),
-            Text(
-              "Login to your account",
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            SizedBox(height: 80.h),
-            const _Email(),
-            SizedBox(height: 24.h),
-            const _Password(),
-            SizedBox(height: 10.h),
-            const _Actions(),
-            const Spacer(),
-            const _LogInButton(),
-          ],
+              SizedBox(height: 115.h),
+              Text(
+                "Welcome",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                "Register an account",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              SizedBox(height: 75.h),
+              const _Name(),
+              SizedBox(height: 25.h),
+              const _Email(),
+              SizedBox(height: 24.h),
+              const _Password(),
+              SizedBox(height: 10.h),
+              const _Actions(),
+              SizedBox(height: 55.h),
+              const _RegisterButton(),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _Name extends StatelessWidget {
+  const _Name();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTextFormField(
+      labelText: "Name",
+      hintText: "John Doe",
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
     );
   }
 }
@@ -97,24 +115,24 @@ class _Actions extends StatelessWidget {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.register),
+          onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.logIn),
           style: TextButton.styleFrom(
             minimumSize: const Size(50, 16),
             textStyle:
                 Theme.of(context).textTheme.bodyText1?.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
           ),
-          child: const Text("Register"),
+          child: const Text("Login"),
         ),
       ],
     );
   }
 }
 
-class _LogInButton extends StatelessWidget {
-  const _LogInButton();
+class _RegisterButton extends StatelessWidget {
+  const _RegisterButton();
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {}, child: const Text("Login"));
+    return ElevatedButton(onPressed: () {}, child: const Text("Register"));
   }
 }
