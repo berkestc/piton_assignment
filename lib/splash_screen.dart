@@ -1,10 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:piton_assignment/constants/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: splashScreenBackgroundColor,
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
+        child: Column(
+          children: const [
+            Spacer(),
+            _AppIcon(),
+            Spacer(),
+            _Buttons(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AppIcon extends StatelessWidget {
+  const _AppIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset("assets/icons/app_icon.png");
+  }
+}
+
+class _Buttons extends StatelessWidget {
+  const _Buttons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text("Login"),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text("Skip"),
+        ),
+      ],
+    );
   }
 }

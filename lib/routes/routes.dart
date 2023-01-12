@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:piton_assignment/splash_screen.dart';
 
 class Routes {
+  static const _instance = Routes._();
+
+  factory Routes() => _instance;
+
+  const Routes._();
+
   static const splash = "/splash";
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
