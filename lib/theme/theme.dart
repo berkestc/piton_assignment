@@ -18,6 +18,8 @@ const _fontFamily = "Manrope";
 const _fontHeight = 1.36;
 
 const _appBarTheme = AppBarTheme(
+  shadowColor: Color(0xFFF4F4FF),
+  toolbarHeight: 87,
   titleTextStyle: TextStyle(
     fontSize: 20,
     height: _fontHeight,
@@ -26,7 +28,7 @@ const _appBarTheme = AppBarTheme(
     fontFamily: _fontFamily,
   ),
   backgroundColor: Colors.white,
-  elevation: 0,
+  elevation: 1,
 );
 
 final _elevatedButtonTheme = ElevatedButtonThemeData(
@@ -89,6 +91,8 @@ final _inputDecorationTheme = InputDecorationTheme(
   ),
   filled: true,
   fillColor: inputDecorationFilledColor,
+  prefixIconColor: textColor.withOpacity(0.4),
+  suffixIconColor: textColor.withOpacity(0.4),
 );
 
 final _textTheme = TextTheme(
@@ -138,7 +142,7 @@ final _textTheme = TextTheme(
 
 final _chipTheme = ChipThemeData(
   showCheckmark: false,
-  backgroundColor: Colors.white,
+  backgroundColor: inputDecorationFilledColor,
   elevation: 0,
   pressElevation: 0,
   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

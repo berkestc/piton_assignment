@@ -5,14 +5,12 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class SvgIcon extends StatelessWidget {
   final String name;
-  final bool overrideTheme;
   final Color? color;
   final Size? size;
 
   const SvgIcon({
     required this.name,
     this.size,
-    this.overrideTheme = true,
     this.color,
   });
 
@@ -21,11 +19,11 @@ class SvgIcon extends StatelessWidget {
     return ImageIcon(
       Svg(
         "assets/icons/$name.svg",
-        color: overrideTheme ? color : null,
+        color: color,
         size: size,
       ),
       size: size != null ? max(size!.height, size!.width) : null,
-      color: overrideTheme ? color : null,
+      color: color,
     );
   }
 }

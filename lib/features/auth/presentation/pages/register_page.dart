@@ -133,6 +133,9 @@ class _RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {}, child: const Text("Register"));
+    return ElevatedButton(
+      onPressed: () => Navigator.of(context).pushNamed(Routes.home),
+      child: const Text("Register"),
+    );
   }
 }

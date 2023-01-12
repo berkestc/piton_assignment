@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final int maxLines;
-  final String labelText;
+  final String? labelText;
   final String? initialValue;
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
@@ -42,7 +42,7 @@ class CustomTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const CustomTextFormField({
-    required this.labelText,
+    this.labelText,
     this.labelTextStyle,
     this.formFieldKey,
     this.controller,
@@ -86,11 +86,14 @@ class CustomTextFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          labelText,
-          style: Theme.of(context).inputDecorationTheme.labelStyle,
-        ),
-        SizedBox(height: 8.h),
+        if (labelText != null)
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.h),
+            child: Text(
+              labelText!,
+              style: Theme.of(context).inputDecorationTheme.labelStyle,
+            ),
+          ),
         TextFormField(
           key: formFieldKey,
           autocorrect: autocorrect,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piton_assignment/features/auth/presentation/pages/log_in_page.dart';
 import 'package:piton_assignment/features/auth/presentation/pages/register_page.dart';
+import 'package:piton_assignment/features/books/presentation/pages/home_page.dart';
 import 'package:piton_assignment/splash_screen.dart';
 
 class Routes {
@@ -16,6 +17,7 @@ class Routes {
   static const splash = "/splash";
   static const logIn = "/log-in";
   static const register = "/register";
+  static const home = "/home";
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -47,6 +49,16 @@ class Routes {
               )
             : MaterialPageRoute(
                 builder: (context) => const RegisterPage(),
+                settings: settings,
+              );
+      case home:
+        return Platform.isIOS
+            ? CupertinoPageRoute(
+                builder: (context) => const HomePage(),
+                settings: settings,
+              )
+            : MaterialPageRoute(
+                builder: (context) => const HomePage(),
                 settings: settings,
               );
       default:

@@ -115,6 +115,9 @@ class _LogInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () {}, child: const Text("Login"));
+    return ElevatedButton(
+      onPressed: () => Navigator.of(context).pushNamed(Routes.home),
+      child: const Text("Login"),
+    );
   }
 }
