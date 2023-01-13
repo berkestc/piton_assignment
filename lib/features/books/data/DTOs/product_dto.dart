@@ -9,7 +9,7 @@ class LikeCountConverter extends JsonConverter<int, Map<String, dynamic>> {
 
   @override
   int fromJson(Map<String, dynamic> json) {
-    return ((json['likes_aggregate'] as Map<String, dynamic>)["aggregate"] as Map<String, dynamic>)["count"] as int;
+    return (json["aggregate"] as Map<String, dynamic>)["count"] as int;
   }
 
   @override
@@ -27,7 +27,7 @@ class ProductDto with _$ProductDto {
   const factory ProductDto({
     required int id,
     required int sales,
-    @LikeCountConverter() required int likesCount,
+    @JsonKey(name: "likes_aggregate") @LikeCountConverter() required int likesCount,
     required double price,
     required String name,
     required String author,

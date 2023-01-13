@@ -22,6 +22,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
 mixin _$ProductDto {
   int get id => throw _privateConstructorUsedError;
   int get sales => throw _privateConstructorUsedError;
+  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
   int get likesCount => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
@@ -50,7 +51,7 @@ abstract class $ProductDtoCopyWith<$Res> {
   $Res call(
       {int id,
       int sales,
-      @LikeCountConverter() int likesCount,
+      @JsonKey(name: "likes_aggregate") @LikeCountConverter() int likesCount,
       double price,
       String name,
       String author,
@@ -146,7 +147,7 @@ abstract class _$$_ProductDtoCopyWith<$Res>
   $Res call(
       {int id,
       int sales,
-      @LikeCountConverter() int likesCount,
+      @JsonKey(name: "likes_aggregate") @LikeCountConverter() int likesCount,
       double price,
       String name,
       String author,
@@ -235,15 +236,19 @@ class _$_ProductDto extends _ProductDto {
   const _$_ProductDto(
       {required this.id,
       required this.sales,
-      @LikeCountConverter() required this.likesCount,
+      @JsonKey(name: "likes_aggregate")
+      @LikeCountConverter()
+          required this.likesCount,
       required this.price,
       required this.name,
       required this.author,
       required this.cover,
       required this.slug,
-      @JsonKey(name: "created_at") required this.createdAt,
+      @JsonKey(name: "created_at")
+          required this.createdAt,
       required this.description,
-      @JsonKey(ignore: true) this.imageURL})
+      @JsonKey(ignore: true)
+          this.imageURL})
       : super._();
 
   factory _$_ProductDto.fromJson(Map<String, dynamic> json) =>
@@ -254,6 +259,7 @@ class _$_ProductDto extends _ProductDto {
   @override
   final int sales;
   @override
+  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
   final int likesCount;
   @override
@@ -325,15 +331,19 @@ abstract class _ProductDto extends ProductDto {
   const factory _ProductDto(
       {required final int id,
       required final int sales,
-      @LikeCountConverter() required final int likesCount,
+      @JsonKey(name: "likes_aggregate")
+      @LikeCountConverter()
+          required final int likesCount,
       required final double price,
       required final String name,
       required final String author,
       required final String cover,
       required final String slug,
-      @JsonKey(name: "created_at") required final String createdAt,
+      @JsonKey(name: "created_at")
+          required final String createdAt,
       required final String description,
-      @JsonKey(ignore: true) final String? imageURL}) = _$_ProductDto;
+      @JsonKey(ignore: true)
+          final String? imageURL}) = _$_ProductDto;
   const _ProductDto._() : super._();
 
   factory _ProductDto.fromJson(Map<String, dynamic> json) =
@@ -344,6 +354,7 @@ abstract class _ProductDto extends ProductDto {
   @override
   int get sales;
   @override
+  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
   int get likesCount;
   @override

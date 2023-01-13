@@ -1,14 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:piton_assignment/constants/colors.dart';
 import 'package:piton_assignment/custom/custom_text_form_field.dart';
+import 'package:piton_assignment/features/books/domain/models/category.dart';
+import 'package:piton_assignment/features/books/domain/models/product.dart';
+import 'package:piton_assignment/features/books/presentation/providers/books_provider.dart';
 import 'package:piton_assignment/utils/svg_icon.dart';
 
-class HomePage extends StatelessWidget {
+final _currentCategoryProvider = Provider<Category>((ref) => throw UnimplementedError());
+final _currentProductProvider = Provider<Product>((ref) => throw UnimplementedError());
+
+class HomePage extends ConsumerWidget {
   const HomePage();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final booksState = ref.watch(booksProvider);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 92.h,
@@ -26,50 +36,104 @@ class HomePage extends StatelessWidget {
           child: Text("Catalog"),
         ),
       ),
-      body: const CustomScrollView(
+      body: CustomScrollView(
         slivers: [
-          _Filters(),
-          _Search(),
-          _BestSeller(),
+          const _Filters(),
+          const _Search(),
+          for (final category in booksState.categories.where(
+            (element) =>
+                element.products
+                    .where(
+                      (element) =>
+                          element.name.contains(booksState.searchFilter) ||
+                          element.author.contains(booksState.searchFilter),
+                    )
+                    .isNotEmpty &&
+                booksState.selectedCategoryId.fold(() => true, (a) => element.id == a),
+          ))
+            ProviderScope(
+              overrides: [_currentCategoryProvider.overrideWithValue(category)],
+              child: const _Category(),
+            )
         ],
       ),
     );
   }
 }
 
-class _Filters extends StatelessWidget {
+class _Filters extends ConsumerWidget {
   const _Filters();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final booksNotifier = ref.watch(booksProvider.notifier);
+    final booksState = ref.watch(booksProvider);
+
+    final isAllFilterSelected = booksState.selectedCategoryId.fold(() => true, (a) => false);
+
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 90.h,
-        child: ListView.separated(
-          padding: EdgeInsets.fromLTRB(20.w, 28.h, 20.w, 20.h),
-          separatorBuilder: (context, index) => SizedBox(width: 10.w),
+        child: ListView.custom(
+          padding: EdgeInsets.fromLTRB(20.w, 28.h, 10.w, 20.h),
           scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          itemBuilder: (context, index) => ChoiceChip(
-            label: const Text("asdas"),
-            selected: true,
-            onSelected: (_) {},
+          childrenDelegate: SliverChildListDelegate.fixed(
+            [
+              ChoiceChip(
+                label: Text(
+                  "All",
+                  style: Theme.of(context)
+                      .chipTheme
+                      .labelStyle
+                      ?.copyWith(color: !isAllFilterSelected ? textColor.withOpacity(0.4) : null),
+                ),
+                selected: isAllFilterSelected,
+                onSelected: (_) => booksNotifier.setFilter(null),
+              ),
+              SizedBox(width: 10.w),
+              for (final category in booksState.categories.where((element) => element.products.isNotEmpty))
+                buildCategoryFilter(context, ref, category: category),
+            ],
           ),
         ),
       ),
     );
   }
+
+  Widget buildCategoryFilter(BuildContext context, WidgetRef ref, {required Category category}) {
+    final booksNotifier = ref.read(booksProvider.notifier);
+    final booksState = ref.read(booksProvider);
+
+    final isSelected = booksState.selectedCategoryId.fold(() => false, (a) => a == category.id);
+
+    return Padding(
+      padding: EdgeInsets.only(right: 10.w),
+      child: ChoiceChip(
+        label: Text(
+          category.name,
+          style:
+              Theme.of(context).chipTheme.labelStyle?.copyWith(color: !isSelected ? textColor.withOpacity(0.4) : null),
+        ),
+        selected: isSelected,
+        onSelected: (_) => booksNotifier.setFilter(category.id),
+      ),
+    );
+  }
 }
 
-class _Search extends StatelessWidget {
+class _Search extends ConsumerWidget {
   const _Search();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final booksNotifier = ref.watch(booksProvider.notifier);
+
     return SliverPadding(
       padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 40.h),
       sliver: SliverToBoxAdapter(
         child: CustomTextFormField(
+          onChanged: booksNotifier.onSearchFilterChanged,
+          onFieldSubmitted: booksNotifier.onSearchFilterChanged,
           hintText: "Search",
           prefixIcon: const SvgIcon(
             name: "search",
@@ -86,11 +150,18 @@ class _Search extends StatelessWidget {
   }
 }
 
-class _BestSeller extends StatelessWidget {
-  const _BestSeller();
+class _Category extends ConsumerWidget {
+  const _Category();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final category = ref.watch(_currentCategoryProvider);
+    final booksState = ref.watch(booksProvider);
+
+    final filtered = category.products.where(
+      (element) => element.name.contains(booksState.searchFilter) || element.author.contains(booksState.searchFilter),
+    );
+
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -100,7 +171,7 @@ class _BestSeller extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Best Seller",
+                  category.name,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 TextButton(
@@ -120,10 +191,12 @@ class _BestSeller extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 40.h),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => const _BookItem(),
+              itemBuilder: (context, index) => ProviderScope(
+                overrides: [_currentProductProvider.overrideWithValue(filtered.elementAt(index))],
+                child: const _BookItem(),
+              ),
               separatorBuilder: (context, indez) => SizedBox(width: 10.w),
-              itemCount: 5,
+              itemCount: filtered.length,
             ),
           ),
         ],
@@ -132,11 +205,13 @@ class _BestSeller extends StatelessWidget {
   }
 }
 
-class _BookItem extends StatelessWidget {
+class _BookItem extends ConsumerWidget {
   const _BookItem();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final product = ref.watch(_currentProductProvider);
+
     return Container(
       width: 210.w,
       padding: EdgeInsets.all(10.r),
@@ -146,32 +221,39 @@ class _BookItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Placeholder(
-            fallbackWidth: 80.w,
-            fallbackHeight: 120.h,
+          CachedNetworkImage(
+            imageUrl: product.imageURL,
+            height: 120.h,
+            width: 80.w,
           ),
           SizedBox(width: 10.w),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Dune",
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  "Frank Herbert",
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-                const Spacer(),
-                Text(
-                  "87,75 \$",
-                  style:
-                      Theme.of(context).textTheme.headline6?.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
-                ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    product.author,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  const Spacer(),
+                  Text(
+                    "${product.price} \$",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
           )
         ],
