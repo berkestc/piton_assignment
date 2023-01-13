@@ -11,7 +11,7 @@ import '../../../../custom/custom_text_form_field.dart';
 import '../../../../utils/svg_icon.dart';
 import '../../domain/models/product.dart';
 
-final _currentProductProvider = Provider<Product>((ref) => throw UnimplementedError());
+final _currentProductProvider = Provider.autoDispose<Product>((ref) => throw UnimplementedError());
 
 final _searchProvider = StateProvider.autoDispose((ref) => "");
 
@@ -22,10 +22,12 @@ class CategoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final category = context.arguments as Category;
 
-    final searchQuery = ref.watch(_searchProvider);
+    final searchQuery = ref.watch(_searchProvider).toLowerCase();
 
-    final filteredProducts = category.products
-        .where((element) => element.name.contains(searchQuery) || element.author.contains(searchQuery));
+    final filteredProducts = category.products.where(
+      (element) =>
+          element.name.toLowerCase().contains(searchQuery) || element.author.toLowerCase().contains(searchQuery),
+    );
 
     return Scaffold(
       appBar: AppBar(

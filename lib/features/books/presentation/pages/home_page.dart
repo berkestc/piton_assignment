@@ -10,8 +10,8 @@ import 'package:piton_assignment/features/books/presentation/providers/books_pro
 import 'package:piton_assignment/routes/routes.dart';
 import 'package:piton_assignment/utils/svg_icon.dart';
 
-final _currentCategoryProvider = Provider<Category>((ref) => throw UnimplementedError());
-final _currentProductProvider = Provider<Product>((ref) => throw UnimplementedError());
+final _currentCategoryProvider = Provider.autoDispose<Category>((ref) => throw UnimplementedError());
+final _currentProductProvider = Provider.autoDispose<Product>((ref) => throw UnimplementedError());
 
 class HomePage extends ConsumerWidget {
   const HomePage();
@@ -37,27 +37,29 @@ class HomePage extends ConsumerWidget {
           child: Text("Catalog"),
         ),
       ),
-      body: CustomScrollView(
-        slivers: [
-          const _Filters(),
-          const _Search(),
-          for (final category in booksState.categories.where(
-            (element) =>
-                element.products
-                    .where(
-                      (element) =>
-                          element.name.contains(booksState.searchFilter) ||
-                          element.author.contains(booksState.searchFilter),
-                    )
-                    .isNotEmpty &&
-                booksState.selectedCategoryId.fold(() => true, (a) => element.id == a),
-          ))
-            ProviderScope(
-              overrides: [_currentCategoryProvider.overrideWithValue(category)],
-              child: const _Category(),
-            )
-        ],
-      ),
+      body: booksState.isLoading
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : CustomScrollView(
+              slivers: [
+                const _Filters(),
+                const _Search(),
+                for (final category in booksState.categories.where(
+                  (element) =>
+                      element.products
+                          .where(
+                            (element) =>
+                                element.name.toLowerCase().contains(booksState.searchFilter) ||
+                                element.author.toLowerCase().contains(booksState.searchFilter),
+                          )
+                          .isNotEmpty &&
+                      booksState.selectedCategoryId.fold(() => true, (a) => element.id == a),
+                ))
+                  ProviderScope(
+                    overrides: [_currentCategoryProvider.overrideWithValue(category)],
+                    child: const _Category(),
+                  )
+              ],
+            ),
     );
   }
 }
@@ -160,7 +162,9 @@ class _Category extends ConsumerWidget {
     final booksState = ref.watch(booksProvider);
 
     final filtered = category.products.where(
-      (element) => element.name.contains(booksState.searchFilter) || element.author.contains(booksState.searchFilter),
+      (element) =>
+          element.name.toLowerCase().contains(booksState.searchFilter) ||
+          element.author.toLowerCase().contains(booksState.searchFilter),
     );
 
     return SliverToBoxAdapter(
@@ -178,6 +182,7 @@ class _Category extends ConsumerWidget {
                 TextButton(
                   onPressed: () => Navigator.of(context).pushNamed(Routes.category, arguments: category),
                   style: TextButton.styleFrom(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     minimumSize: const Size(45, 16),
                     foregroundColor: elevatedButtonColor,
                     textStyle: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
@@ -213,51 +218,54 @@ class _BookItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final product = ref.watch(_currentProductProvider);
 
-    return Container(
-      width: 210.w,
-      padding: EdgeInsets.all(10.r),
-      decoration: BoxDecoration(
-        color: inputDecorationFilledColor,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          CachedNetworkImage(
-            imageUrl: product.imageURL,
-            height: 120.h,
-            width: 80.w,
-          ),
-          SizedBox(width: 10.w),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    product.author,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  const Spacer(),
-                  Text(
-                    "${product.price} \$",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(Routes.bookDetails, arguments: product),
+      child: Container(
+        width: 210.w,
+        padding: EdgeInsets.all(10.r),
+        decoration: BoxDecoration(
+          color: inputDecorationFilledColor,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          children: [
+            CachedNetworkImage(
+              imageUrl: product.imageURL,
+              height: 120.h,
+              width: 80.w,
             ),
-          )
-        ],
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(height: 4.h),
+                    Text(
+                      product.author,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    const Spacer(),
+                    Text(
+                      "${product.price} \$",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

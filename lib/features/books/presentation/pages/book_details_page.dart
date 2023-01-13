@@ -110,7 +110,7 @@ class _Button extends StatelessWidget {
     final product = context.arguments as Product;
 
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

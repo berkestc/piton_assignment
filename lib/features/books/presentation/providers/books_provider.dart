@@ -29,7 +29,7 @@ class _BooksNotifier extends StateNotifier<BooksState> {
   }
 
   void onSearchFilterChanged(String? value) {
-    state = state.copyWith(searchFilter: value ?? "");
+    state = state.copyWith(searchFilter: value?.toLowerCase() ?? "");
   }
 }
 
