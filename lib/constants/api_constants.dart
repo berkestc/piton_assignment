@@ -5,4 +5,6 @@ abstract class ApiConstants {
   static String categoriesEndpoint = "/categories";
   static String productsEndpoint = "/products";
   static String productCoverImageEndpoint = "/cover_image";
+  static String logInEndpoint = "/login";
+  static String registerEndpoint = "/register";
 }

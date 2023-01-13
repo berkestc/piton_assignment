@@ -46,7 +46,7 @@ class _Buttons extends StatelessWidget {
           child: const Text("Login"),
         ),
         TextButton(
-          onPressed: () => Navigator.of(context).pushReplacementNamed(Routes.register),
+          onPressed: () {},
           child: const Text("Skip"),
         ),
       ],

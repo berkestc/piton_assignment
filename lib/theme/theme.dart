@@ -13,6 +13,8 @@ final theme = ThemeData(
   textButtonTheme: _textButtonTheme,
   chipTheme: _chipTheme,
   checkboxTheme: _checkboxTheme,
+  toggleableActiveColor: primaryColor,
+  progressIndicatorTheme: _progressIndicatorTheme,
 );
 
 const _colorScheme = ColorScheme.light(secondary: primaryColor);
@@ -165,3 +167,6 @@ final _checkboxTheme = CheckboxThemeData(
   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
 );
+
+const _progressIndicatorTheme =
+    ProgressIndicatorThemeData(color: elevatedButtonColor, circularTrackColor: Colors.white);
