@@ -4,6 +4,7 @@ import '../constants/colors.dart';
 
 final theme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
+  colorScheme: _colorScheme,
   appBarTheme: _appBarTheme,
   inputDecorationTheme: _inputDecorationTheme,
   fontFamily: _fontFamily,
@@ -13,6 +14,8 @@ final theme = ThemeData(
   chipTheme: _chipTheme,
   checkboxTheme: _checkboxTheme,
 );
+
+const _colorScheme = ColorScheme.light(secondary: primaryColor);
 
 const _fontFamily = "Manrope";
 const _fontHeight = 1.36;

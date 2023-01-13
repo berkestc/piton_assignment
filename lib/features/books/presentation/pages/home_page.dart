@@ -7,6 +7,7 @@ import 'package:piton_assignment/custom/custom_text_form_field.dart';
 import 'package:piton_assignment/features/books/domain/models/category.dart';
 import 'package:piton_assignment/features/books/domain/models/product.dart';
 import 'package:piton_assignment/features/books/presentation/providers/books_provider.dart';
+import 'package:piton_assignment/routes/routes.dart';
 import 'package:piton_assignment/utils/svg_icon.dart';
 
 final _currentCategoryProvider = Provider<Category>((ref) => throw UnimplementedError());
@@ -175,7 +176,7 @@ class _Category extends ConsumerWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pushNamed(Routes.category, arguments: category),
                   style: TextButton.styleFrom(
                     minimumSize: const Size(45, 16),
                     foregroundColor: elevatedButtonColor,
