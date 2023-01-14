@@ -7,6 +7,7 @@ import 'package:piton_assignment/features/auth/presentation/pages/register_page.
 import 'package:piton_assignment/features/books/presentation/pages/book_details_page.dart';
 import 'package:piton_assignment/features/books/presentation/pages/category_page.dart';
 import 'package:piton_assignment/features/books/presentation/pages/home_page.dart';
+import 'package:piton_assignment/landing_page.dart';
 import 'package:piton_assignment/splash_screen.dart';
 
 class Routes {
@@ -16,6 +17,7 @@ class Routes {
 
   const Routes._();
 
+  static const landing = "/landing";
   static const splash = "/splash";
   static const logIn = "/log-in";
   static const register = "/register";
@@ -25,6 +27,17 @@ class Routes {
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case landing:
+        return Platform.isIOS
+            ? CupertinoPageRoute(
+                builder: (context) => const LandingPage(),
+                settings: settings,
+              )
+            : MaterialPageRoute(
+                builder: (context) => const LandingPage(),
+                settings: settings,
+              );
+
       case splash:
         return Platform.isIOS
             ? CupertinoPageRoute(

@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       builder: (context, child) => GestureDetector(
         onTap: () {
-          // To close the keyboard when another element on the screen is tapped.
           final currentFocus = FocusScope.of(context);
 
           if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+            // To close the keyboard when another element on the screen is tapped.
             FocusManager.instance.primaryFocus?.unfocus();
           }
         },
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "Piton Assignment",
         theme: theme,
-        initialRoute: Routes.splash,
+        initialRoute: Routes.landing,
         onGenerateRoute: Routes().onGenerateRoute,
       ),
     );

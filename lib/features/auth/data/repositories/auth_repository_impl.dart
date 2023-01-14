@@ -2,24 +2,30 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:piton_assignment/constants/api_constants.dart';
 import 'package:piton_assignment/core/network_info.dart';
 import 'package:piton_assignment/features/auth/domain/core/auth_failure.dart';
+import 'package:piton_assignment/features/auth/domain/models/user.dart';
 import 'package:piton_assignment/features/auth/domain/repositories/auth_repository.dart';
+import 'package:piton_assignment/services/local_resources_service.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
+  final LocalResourcesService localResourcesService;
   final NetworkInfo networkInfo;
   final Client client;
 
   const AuthRepositoryImpl({
-    required this.client,
+    required this.localResourcesService,
     required this.networkInfo,
+    required this.client,
   });
 
   @override
-  Future<Either<AuthFailure, String>> logInWithEmailAndPassword({
+  Future<Either<AuthFailure, User>> logInWithEmailAndPassword({
     required String email,
     required String password,
+    required bool rememberMe,
   }) async {
     if (await networkInfo.isConnected) {
       try {
@@ -34,7 +40,8 @@ class AuthRepositoryImpl implements AuthRepository {
           final token = (decoded["action_login"] as Map<String, dynamic>)["token"] as String;
 
           if (token.isNotEmpty) {
-            return right(token);
+            if (rememberMe) await localResourcesService.setToken(token);
+            return right(User(token: token));
           } else {
             return left(const AuthFailure.invalidEmailOrPassword());
           }
@@ -50,7 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthFailure, String>> registerWithEmailAndPassword({
+  Future<Either<AuthFailure, User>> registerWithEmailAndPassword({
     required String name,
     required String email,
     required String password,
@@ -68,7 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
           final error = decoded["error"] as String?;
 
           if (error == null) {
-            return logInWithEmailAndPassword(email: email, password: password);
+            return logInWithEmailAndPassword(email: email, password: password, rememberMe: false);
           }
         }
 
@@ -79,5 +86,19 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       return left(const AuthFailure.noConnection());
     }
+  }
+
+  @override
+  Future<Option<User>> getSignedInUser() async {
+    final token = await localResourcesService.getToken();
+
+    return token.fold(() => none(), (a) async {
+      if (JwtDecoder.isExpired(a)) {
+        await localResourcesService.deleteToken();
+        return none();
+      } else {
+        return some(User(token: a));
+      }
+    });
   }
 }

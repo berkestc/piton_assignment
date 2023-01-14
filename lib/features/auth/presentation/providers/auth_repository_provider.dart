@@ -5,8 +5,13 @@ import '../../../../core/injections.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 final authRepositoryProvider = Provider.autoDispose<AuthRepository>((ref) {
+  final localResourcesService = ref.watch(localResourcesServiceProvider);
   final networkInfo = ref.watch(networkInfoProvider);
   final client = ref.watch(httpClientProvider);
 
-  return AuthRepositoryImpl(client: client, networkInfo: networkInfo);
+  return AuthRepositoryImpl(
+    localResourcesService: localResourcesService,
+    client: client,
+    networkInfo: networkInfo,
+  );
 });

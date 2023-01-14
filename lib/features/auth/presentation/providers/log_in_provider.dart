@@ -18,7 +18,11 @@ class _LogInNotifier extends StateNotifier<LogInState> {
     if (state.emailFailure.isNone() && state.passwordFailure.isNone()) {
       state = state.copyWith(isLoading: true);
 
-      final result = await repository.logInWithEmailAndPassword(email: state.email, password: state.password);
+      final result = await repository.logInWithEmailAndPassword(
+        email: state.email,
+        password: state.password,
+        rememberMe: state.rememberMe,
+      );
 
       state = state.copyWith(failure: some(result.map((r) => unit)), isLoading: false);
     }
