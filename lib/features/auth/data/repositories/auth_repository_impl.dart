@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:piton_assignment/constants/api_constants.dart';
 import 'package:piton_assignment/core/network_info.dart';
+import 'package:piton_assignment/features/auth/data/DTOs/user_dto.dart';
 import 'package:piton_assignment/features/auth/domain/core/auth_failure.dart';
 import 'package:piton_assignment/features/auth/domain/models/user.dart';
 import 'package:piton_assignment/features/auth/domain/repositories/auth_repository.dart';
@@ -41,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
           if (token.isNotEmpty) {
             if (rememberMe) await localResourcesService.setToken(token);
-            return right(User(token: token));
+            return right(UserDto.fromToken(token).toDomain());
           } else {
             return left(const AuthFailure.invalidEmailOrPassword());
           }
@@ -97,7 +98,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await localResourcesService.deleteToken();
         return none();
       } else {
-        return some(User(token: a));
+        return some(UserDto.fromToken(a).toDomain());
       }
     });
   }

@@ -22,8 +22,8 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
 mixin _$ProductDto {
   int get id => throw _privateConstructorUsedError;
   int get sales => throw _privateConstructorUsedError;
-  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
+  @JsonKey(name: "likes_aggregate")
   int get likesCount => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $ProductDtoCopyWith<$Res> {
   $Res call(
       {int id,
       int sales,
-      @JsonKey(name: "likes_aggregate") @LikeCountConverter() int likesCount,
+      @LikeCountConverter() @JsonKey(name: "likes_aggregate") int likesCount,
       double price,
       String name,
       String author,
@@ -147,7 +147,7 @@ abstract class _$$_ProductDtoCopyWith<$Res>
   $Res call(
       {int id,
       int sales,
-      @JsonKey(name: "likes_aggregate") @LikeCountConverter() int likesCount,
+      @LikeCountConverter() @JsonKey(name: "likes_aggregate") int likesCount,
       double price,
       String name,
       String author,
@@ -236,8 +236,8 @@ class _$_ProductDto extends _ProductDto {
   const _$_ProductDto(
       {required this.id,
       required this.sales,
-      @JsonKey(name: "likes_aggregate")
       @LikeCountConverter()
+      @JsonKey(name: "likes_aggregate")
           required this.likesCount,
       required this.price,
       required this.name,
@@ -259,8 +259,8 @@ class _$_ProductDto extends _ProductDto {
   @override
   final int sales;
   @override
-  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
+  @JsonKey(name: "likes_aggregate")
   final int likesCount;
   @override
   final double price;
@@ -331,8 +331,8 @@ abstract class _ProductDto extends ProductDto {
   const factory _ProductDto(
       {required final int id,
       required final int sales,
-      @JsonKey(name: "likes_aggregate")
       @LikeCountConverter()
+      @JsonKey(name: "likes_aggregate")
           required final int likesCount,
       required final double price,
       required final String name,
@@ -354,8 +354,8 @@ abstract class _ProductDto extends ProductDto {
   @override
   int get sales;
   @override
-  @JsonKey(name: "likes_aggregate")
   @LikeCountConverter()
+  @JsonKey(name: "likes_aggregate")
   int get likesCount;
   @override
   double get price;

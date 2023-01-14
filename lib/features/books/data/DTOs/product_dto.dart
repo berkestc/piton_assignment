@@ -1,33 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:piton_assignment/features/books/domain/models/product.dart';
 
+import '../core/like_count_converter.dart';
+
 part 'product_dto.freezed.dart';
 part 'product_dto.g.dart';
-
-class LikeCountConverter extends JsonConverter<int, Map<String, dynamic>> {
-  const LikeCountConverter();
-
-  @override
-  int fromJson(Map<String, dynamic> json) {
-    return (json["aggregate"] as Map<String, dynamic>)["count"] as int;
-  }
-
-  @override
-  Map<String, dynamic> toJson(int object) {
-    return {
-      "likes_aggregate": {
-        "aggregate": {"count": object}
-      }
-    };
-  }
-}
 
 @freezed
 class ProductDto with _$ProductDto {
   const factory ProductDto({
     required int id,
     required int sales,
-    @JsonKey(name: "likes_aggregate") @LikeCountConverter() required int likesCount,
+    @LikeCountConverter() @JsonKey(name: "likes_aggregate") required int likesCount,
     required double price,
     required String name,
     required String author,
