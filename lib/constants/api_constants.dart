@@ -7,4 +7,6 @@ abstract class ApiConstants {
   static String productCoverImageEndpoint = "/cover_image";
   static String logInEndpoint = "/login";
   static String registerEndpoint = "/register";
+  static String likeEndpoint = "/like";
+  static String unlikeEndpoint = "/unlike";
 }

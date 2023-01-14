@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:piton_assignment/core/extensions.dart';
 import 'package:piton_assignment/features/books/domain/models/product.dart';
+import 'package:piton_assignment/features/books/presentation/providers/books_provider.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../utils/svg_icon.dart';
@@ -40,21 +42,35 @@ class BookDetails extends StatelessWidget {
                 const _Button(),
               ],
             ),
-            Positioned(
-              right: 0,
-              child: Ink(
-                height: 44.r,
-                width: 44.r,
-                decoration: const BoxDecoration(color: inputDecorationFilledColor, shape: BoxShape.circle),
-                child: IconButton(
-                  onPressed: () {},
-                  color: primaryColor,
-                  splashRadius: 22.r,
-                  icon: const SvgIcon(name: "heart"),
-                ),
-              ),
-            ),
+            const _LikeButton(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LikeButton extends ConsumerWidget {
+  const _LikeButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final booksNotifier = ref.watch(booksProvider.notifier);
+    final booksState = ref.watch(booksProvider);
+    final product = context.arguments as Product;
+    final isLiked = booksState.likedProductIds.contains(product.id);
+
+    return Positioned(
+      right: 0,
+      child: Ink(
+        height: 44.r,
+        width: 44.r,
+        decoration: const BoxDecoration(color: inputDecorationFilledColor, shape: BoxShape.circle),
+        child: IconButton(
+          onPressed: () => booksNotifier.toggleLike(product.id),
+          color: primaryColor,
+          splashRadius: 22.r,
+          icon: SvgIcon(name: isLiked ? "heart_filled" : "heart"),
         ),
       ),
     );

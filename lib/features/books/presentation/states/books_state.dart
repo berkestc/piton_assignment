@@ -10,6 +10,7 @@ class BooksState with _$BooksState {
   const factory BooksState({
     required Option<Failure> failure,
     required List<Category> categories,
+    required List<int> likedProductIds,
     required Option<int> selectedCategoryId,
     required String searchFilter,
     required bool isLoading,
@@ -20,6 +21,7 @@ class BooksState with _$BooksState {
       selectedCategoryId: none(),
       searchFilter: "",
       failure: none(),
+      likedProductIds: [],
       categories: [],
       isLoading: true,
     );

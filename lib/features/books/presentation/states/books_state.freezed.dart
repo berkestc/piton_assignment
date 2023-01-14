@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BooksState {
   Option<Failure> get failure => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
+  List<int> get likedProductIds => throw _privateConstructorUsedError;
   Option<int> get selectedCategoryId => throw _privateConstructorUsedError;
   String get searchFilter => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -36,6 +37,7 @@ abstract class $BooksStateCopyWith<$Res> {
   $Res call(
       {Option<Failure> failure,
       List<Category> categories,
+      List<int> likedProductIds,
       Option<int> selectedCategoryId,
       String searchFilter,
       bool isLoading});
@@ -56,6 +58,7 @@ class _$BooksStateCopyWithImpl<$Res, $Val extends BooksState>
   $Res call({
     Object? failure = null,
     Object? categories = null,
+    Object? likedProductIds = null,
     Object? selectedCategoryId = null,
     Object? searchFilter = null,
     Object? isLoading = null,
@@ -69,6 +72,10 @@ class _$BooksStateCopyWithImpl<$Res, $Val extends BooksState>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      likedProductIds: null == likedProductIds
+          ? _value.likedProductIds
+          : likedProductIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
       selectedCategoryId: null == selectedCategoryId
           ? _value.selectedCategoryId
           : selectedCategoryId // ignore: cast_nullable_to_non_nullable
@@ -96,6 +103,7 @@ abstract class _$$_BooksStateCopyWith<$Res>
   $Res call(
       {Option<Failure> failure,
       List<Category> categories,
+      List<int> likedProductIds,
       Option<int> selectedCategoryId,
       String searchFilter,
       bool isLoading});
@@ -114,6 +122,7 @@ class __$$_BooksStateCopyWithImpl<$Res>
   $Res call({
     Object? failure = null,
     Object? categories = null,
+    Object? likedProductIds = null,
     Object? selectedCategoryId = null,
     Object? searchFilter = null,
     Object? isLoading = null,
@@ -127,6 +136,10 @@ class __$$_BooksStateCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      likedProductIds: null == likedProductIds
+          ? _value._likedProductIds
+          : likedProductIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
       selectedCategoryId: null == selectedCategoryId
           ? _value.selectedCategoryId
           : selectedCategoryId // ignore: cast_nullable_to_non_nullable
@@ -149,10 +162,12 @@ class _$_BooksState implements _BooksState {
   const _$_BooksState(
       {required this.failure,
       required final List<Category> categories,
+      required final List<int> likedProductIds,
       required this.selectedCategoryId,
       required this.searchFilter,
       required this.isLoading})
-      : _categories = categories;
+      : _categories = categories,
+        _likedProductIds = likedProductIds;
 
   @override
   final Option<Failure> failure;
@@ -164,6 +179,14 @@ class _$_BooksState implements _BooksState {
     return EqualUnmodifiableListView(_categories);
   }
 
+  final List<int> _likedProductIds;
+  @override
+  List<int> get likedProductIds {
+    if (_likedProductIds is EqualUnmodifiableListView) return _likedProductIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likedProductIds);
+  }
+
   @override
   final Option<int> selectedCategoryId;
   @override
@@ -173,7 +196,7 @@ class _$_BooksState implements _BooksState {
 
   @override
   String toString() {
-    return 'BooksState(failure: $failure, categories: $categories, selectedCategoryId: $selectedCategoryId, searchFilter: $searchFilter, isLoading: $isLoading)';
+    return 'BooksState(failure: $failure, categories: $categories, likedProductIds: $likedProductIds, selectedCategoryId: $selectedCategoryId, searchFilter: $searchFilter, isLoading: $isLoading)';
   }
 
   @override
@@ -184,6 +207,8 @@ class _$_BooksState implements _BooksState {
             (identical(other.failure, failure) || other.failure == failure) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
+            const DeepCollectionEquality()
+                .equals(other._likedProductIds, _likedProductIds) &&
             (identical(other.selectedCategoryId, selectedCategoryId) ||
                 other.selectedCategoryId == selectedCategoryId) &&
             (identical(other.searchFilter, searchFilter) ||
@@ -197,6 +222,7 @@ class _$_BooksState implements _BooksState {
       runtimeType,
       failure,
       const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(_likedProductIds),
       selectedCategoryId,
       searchFilter,
       isLoading);
@@ -212,6 +238,7 @@ abstract class _BooksState implements BooksState {
   const factory _BooksState(
       {required final Option<Failure> failure,
       required final List<Category> categories,
+      required final List<int> likedProductIds,
       required final Option<int> selectedCategoryId,
       required final String searchFilter,
       required final bool isLoading}) = _$_BooksState;
@@ -220,6 +247,8 @@ abstract class _BooksState implements BooksState {
   Option<Failure> get failure;
   @override
   List<Category> get categories;
+  @override
+  List<int> get likedProductIds;
   @override
   Option<int> get selectedCategoryId;
   @override
