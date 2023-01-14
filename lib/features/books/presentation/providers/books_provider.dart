@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/features/auth/domain/models/user.dart';
-import 'package:piton_assignment/features/auth/presentation/providers/user_provider.dart';
-import 'package:piton_assignment/features/books/domain/repositories/books_repository.dart';
-import 'package:piton_assignment/features/books/presentation/providers/books_repository_provider.dart';
 
+import '../../../auth/domain/models/user.dart';
+import '../../../auth/presentation/providers/user_provider.dart';
+import '../../domain/repositories/books_repository.dart';
 import '../states/books_state.dart';
+import 'books_repository_provider.dart';
 
 class _BooksNotifier extends StateNotifier<BooksState> {
   final BooksRepository repository;

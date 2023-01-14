@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/features/auth/domain/repositories/auth_repository.dart';
-import 'package:piton_assignment/features/auth/presentation/providers/auth_repository_provider.dart';
 
 import '../../../../core/validation_error_visibility.dart';
 import '../../../../utils/validators.dart';
+import '../../domain/repositories/auth_repository.dart';
 import '../states/register_state.dart';
+import 'auth_repository_provider.dart';
 
 class _RegisterNotifier extends StateNotifier<RegisterState> {
   final AuthRepository repository;

@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/core/extensions.dart';
-import 'package:piton_assignment/features/books/domain/models/product.dart';
-import 'package:piton_assignment/features/books/presentation/providers/books_provider.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../../core/extensions.dart';
 import '../../../../utils/svg_icon.dart';
+import '../../domain/models/product.dart';
+import '../providers/books_provider.dart';
 
 class BookDetails extends StatelessWidget {
   const BookDetails();

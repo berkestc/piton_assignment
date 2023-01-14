@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:piton_assignment/features/auth/presentation/pages/log_in_page.dart';
-import 'package:piton_assignment/features/auth/presentation/pages/register_page.dart';
-import 'package:piton_assignment/features/books/presentation/pages/book_details_page.dart';
-import 'package:piton_assignment/features/books/presentation/pages/category_page.dart';
-import 'package:piton_assignment/features/books/presentation/pages/home_page.dart';
-import 'package:piton_assignment/landing_page.dart';
-import 'package:piton_assignment/splash_screen.dart';
+import '../features/auth/presentation/pages/log_in_page.dart';
+import '../features/auth/presentation/pages/register_page.dart';
+import '../features/books/presentation/pages/book_details_page.dart';
+import '../features/books/presentation/pages/category_page.dart';
+import '../features/books/presentation/pages/home_page.dart';
+import '../landing_page.dart';
+import '../splash_screen.dart';
 
 class Routes {
   static const _instance = Routes._();

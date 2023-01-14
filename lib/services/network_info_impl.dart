@@ -1,8 +1,6 @@
 import 'package:cross_connectivity/cross_connectivity.dart';
 
-abstract class NetworkInfo {
-  Future<bool> get isConnected;
-}
+import 'network_info.dart';
 
 class NetworkInfoImpl implements NetworkInfo {
   final Connectivity connectivity;

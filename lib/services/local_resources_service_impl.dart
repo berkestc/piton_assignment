@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:piton_assignment/services/local_resources_service.dart';
+import 'local_resources_service.dart';
 
 class LocalResourcesServiceImpl implements LocalResourcesService {
   final FlutterSecureStorage flutterSecureStorage;

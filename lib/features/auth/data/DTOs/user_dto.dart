@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:piton_assignment/features/auth/domain/models/user.dart';
+import '../../domain/models/user.dart';
 
 part 'user_dto.freezed.dart';
 

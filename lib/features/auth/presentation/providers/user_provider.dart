@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/features/auth/domain/repositories/auth_repository.dart';
-import 'package:piton_assignment/features/auth/presentation/providers/auth_repository_provider.dart';
 
+import '../../domain/repositories/auth_repository.dart';
 import '../states/user_state.dart';
+import 'auth_repository_provider.dart';
 
 class _UserNotifier extends StateNotifier<UserState> {
   final AuthRepository repository;

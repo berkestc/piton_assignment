@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:piton_assignment/features/auth/domain/core/auth_failure.dart';
-import 'package:piton_assignment/features/auth/domain/models/user.dart';
+import '../core/auth_failure.dart';
+import '../models/user.dart';
 
 abstract class AuthRepository {
   Future<Either<AuthFailure, User>> logInWithEmailAndPassword({

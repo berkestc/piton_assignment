@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:piton_assignment/features/books/data/DTOs/product_dto.dart';
-import 'package:piton_assignment/features/books/domain/models/category.dart';
+
+import '../../domain/models/category.dart';
+import 'product_dto.dart';
 
 part 'category_dto.freezed.dart';
 part 'category_dto.g.dart';

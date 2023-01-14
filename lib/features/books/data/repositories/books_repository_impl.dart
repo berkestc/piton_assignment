@@ -3,14 +3,15 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
-import 'package:piton_assignment/constants/api_constants.dart';
-import 'package:piton_assignment/core/failure.dart';
-import 'package:piton_assignment/core/network_info.dart';
-import 'package:piton_assignment/features/auth/domain/models/user.dart';
-import 'package:piton_assignment/features/books/data/DTOs/category_dto.dart';
-import 'package:piton_assignment/features/books/data/DTOs/product_dto.dart';
-import 'package:piton_assignment/features/books/domain/models/category.dart';
-import 'package:piton_assignment/features/books/domain/repositories/books_repository.dart';
+
+import '../../../../constants/api_constants.dart';
+import '../../../../core/failure.dart';
+import '../../../../services/network_info.dart';
+import '../../../auth/domain/models/user.dart';
+import '../../domain/models/category.dart';
+import '../../domain/repositories/books_repository.dart';
+import '../DTOs/category_dto.dart';
+import '../DTOs/product_dto.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
   final NetworkInfo networkInfo;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:piton_assignment/constants/colors.dart';
-import 'package:piton_assignment/routes/routes.dart';
+import 'constants/colors.dart';
+import 'routes/routes.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

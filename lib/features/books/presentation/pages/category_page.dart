@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/constants/colors.dart';
-import 'package:piton_assignment/core/extensions.dart';
-import 'package:piton_assignment/features/books/domain/models/category.dart';
-import 'package:piton_assignment/routes/routes.dart';
 
+import '../../../../constants/colors.dart';
+import '../../../../core/extensions.dart';
 import '../../../../custom/custom_text_form_field.dart';
+import '../../../../routes/routes.dart';
 import '../../../../utils/svg_icon.dart';
+import '../../domain/models/category.dart';
 import '../../domain/models/product.dart';
 
 final _currentProductProvider = Provider.autoDispose<Product>((ref) => throw UnimplementedError());

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/constants/colors.dart';
-import 'package:piton_assignment/custom/custom_text_form_field.dart';
-import 'package:piton_assignment/features/auth/presentation/providers/log_in_provider.dart';
-import 'package:piton_assignment/routes/routes.dart';
-import 'package:piton_assignment/utils/button_text.dart';
-import 'package:piton_assignment/utils/svg_icon.dart';
+
+import '../../../../constants/colors.dart';
+import '../../../../custom/custom_text_form_field.dart';
+import '../../../../routes/routes.dart';
+import '../../../../utils/button_text.dart';
+import '../../../../utils/svg_icon.dart';
+import '../providers/log_in_provider.dart';
 
 final _formKeyProvider = Provider.autoDispose((ref) => GlobalKey<FormState>());
 

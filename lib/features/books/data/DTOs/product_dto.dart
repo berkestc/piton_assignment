@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:piton_assignment/features/books/domain/models/product.dart';
+import '../../domain/models/product.dart';
 
 import '../core/like_count_converter.dart';
 

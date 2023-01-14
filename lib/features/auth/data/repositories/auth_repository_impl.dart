@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:piton_assignment/constants/api_constants.dart';
-import 'package:piton_assignment/core/network_info.dart';
-import 'package:piton_assignment/features/auth/data/DTOs/user_dto.dart';
-import 'package:piton_assignment/features/auth/domain/core/auth_failure.dart';
-import 'package:piton_assignment/features/auth/domain/models/user.dart';
-import 'package:piton_assignment/features/auth/domain/repositories/auth_repository.dart';
-import 'package:piton_assignment/services/local_resources_service.dart';
+
+import '../../../../constants/api_constants.dart';
+import '../../../../services/local_resources_service.dart';
+import '../../../../services/network_info.dart';
+import '../../domain/core/auth_failure.dart';
+import '../../domain/models/user.dart';
+import '../../domain/repositories/auth_repository.dart';
+import '../DTOs/user_dto.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final LocalResourcesService localResourcesService;

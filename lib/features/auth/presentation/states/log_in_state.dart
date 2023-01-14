@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:piton_assignment/features/auth/domain/core/auth_failure.dart';
 
 import '../../../../core/validation_error_visibility.dart';
 import '../../../../core/value_failure.dart';
+import '../../domain/core/auth_failure.dart';
 
 part 'log_in_state.freezed.dart';
 
