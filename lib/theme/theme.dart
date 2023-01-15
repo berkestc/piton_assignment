@@ -19,6 +19,7 @@ final theme = ThemeData(
 );
 
 const systemUiOverlayStyle = SystemUiOverlayStyle(
+  statusBarColor: Colors.transparent,
   statusBarIconBrightness: Brightness.dark,
   statusBarBrightness: Brightness.light,
 );
