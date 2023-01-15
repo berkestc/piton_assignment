@@ -139,6 +139,7 @@ class _ProductItem extends ConsumerWidget {
                     ],
                   ),
                 ),
+                SizedBox(width: 6.w),
                 Text(
                   "${product.price} \$",
                   style:

@@ -23,7 +23,7 @@ class ButtonText extends StatelessWidget {
       return SizedBox(
         height: height,
         width: width,
-        child: const CircularProgressIndicator.adaptive(),
+        child: const CircularProgressIndicator.adaptive(backgroundColor: Colors.white),
       );
     }
   }

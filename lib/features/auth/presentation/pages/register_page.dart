@@ -21,40 +21,45 @@ class RegisterPage extends ConsumerWidget {
 
     return IgnorePointer(
       ignoring: isLoading,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(20.w, (60 - ScreenUtil().statusBarHeight).h, 20.w, 40.h),
-          child: Form(
-            key: ref.watch(_formKeyProvider),
-            autovalidateMode: validationErrorVisibility.when(
-              hide: () => AutovalidateMode.disabled,
-              show: () => AutovalidateMode.onUserInteraction,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const _AppIcon(),
-                SizedBox(height: 115.h),
-                Text(
-                  "Welcome",
-                  style: Theme.of(context).textTheme.headline6,
+      child: ColoredBox(
+        color: Colors.white,
+        child: SafeArea(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(20.w, (60 - ScreenUtil().statusBarHeight).h, 20.w, 40.h),
+              child: Form(
+                key: ref.watch(_formKeyProvider),
+                autovalidateMode: validationErrorVisibility.when(
+                  hide: () => AutovalidateMode.disabled,
+                  show: () => AutovalidateMode.onUserInteraction,
                 ),
-                SizedBox(height: 10.h),
-                Text(
-                  "Register an account",
-                  style: Theme.of(context).textTheme.headline5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const _AppIcon(),
+                    SizedBox(height: 115.h),
+                    Text(
+                      "Welcome",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Register an account",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    SizedBox(height: 75.h),
+                    const _Name(),
+                    SizedBox(height: 25.h),
+                    const _Email(),
+                    SizedBox(height: 24.h),
+                    const _Password(),
+                    SizedBox(height: 10.h),
+                    const _LoginButton(),
+                    SizedBox(height: 55.h),
+                    const _RegisterButton(),
+                  ],
                 ),
-                SizedBox(height: 75.h),
-                const _Name(),
-                SizedBox(height: 25.h),
-                const _Email(),
-                SizedBox(height: 24.h),
-                const _Password(),
-                SizedBox(height: 10.h),
-                const _LoginButton(),
-                SizedBox(height: 55.h),
-                const _RegisterButton(),
-              ],
+              ),
             ),
           ),
         ),

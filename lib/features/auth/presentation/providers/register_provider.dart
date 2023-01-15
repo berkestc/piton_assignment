@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:piton_assignment/features/auth/presentation/providers/user_provider.dart';
 
 import '../../../../core/validation_error_visibility.dart';
 import '../../../../utils/validators.dart';
@@ -9,8 +10,12 @@ import 'auth_repository_provider.dart';
 
 class _RegisterNotifier extends StateNotifier<RegisterState> {
   final AuthRepository repository;
+  final UserNotifier userNotifier;
 
-  _RegisterNotifier({required this.repository}) : super(RegisterState.initial());
+  _RegisterNotifier({
+    required this.userNotifier,
+    required this.repository,
+  }) : super(RegisterState.initial());
 
   Future<void> registerWithEmailAndPassword() async {
     state = state.copyWith(validationErrorVisibility: const ValidationErrorVisibility.show());
@@ -23,6 +28,8 @@ class _RegisterNotifier extends StateNotifier<RegisterState> {
         email: state.email,
         password: state.password,
       );
+
+      userNotifier.setUser(result.toOption());
 
       state = state.copyWith(failure: some(result.map((r) => unit)), isLoading: false);
     }
@@ -51,7 +58,8 @@ class _RegisterNotifier extends StateNotifier<RegisterState> {
 }
 
 final registerProvider = StateNotifierProvider.autoDispose<_RegisterNotifier, RegisterState>((ref) {
+  final userNotifier = ref.watch(userProvider.notifier);
   final repository = ref.watch(authRepositoryProvider);
 
-  return _RegisterNotifier(repository: repository);
+  return _RegisterNotifier(userNotifier: userNotifier, repository: repository);
 });

@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         child: child,
       ),
       child: MaterialApp(
+        color: Colors.white,
         debugShowCheckedModeBanner: false,
         title: "Piton Assignment",
         theme: theme,

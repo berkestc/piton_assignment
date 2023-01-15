@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../constants/colors.dart';
 
@@ -17,12 +18,18 @@ final theme = ThemeData(
   progressIndicatorTheme: _progressIndicatorTheme,
 );
 
+const systemUiOverlayStyle = SystemUiOverlayStyle(
+  statusBarIconBrightness: Brightness.dark,
+  statusBarBrightness: Brightness.light,
+);
+
 const _colorScheme = ColorScheme.light(secondary: primaryColor);
 
 const _fontFamily = "Manrope";
 const _fontHeight = 1.36;
 
 const _appBarTheme = AppBarTheme(
+  systemOverlayStyle: systemUiOverlayStyle,
   shadowColor: Color(0xFFF4F4FF),
   toolbarHeight: 87,
   titleTextStyle: TextStyle(

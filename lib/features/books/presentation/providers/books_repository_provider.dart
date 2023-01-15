@@ -5,7 +5,7 @@ import '../../data/repositories/books_repository_impl.dart';
 import '../../domain/repositories/books_repository.dart';
 
 final booksRepositoryProvider = Provider.autoDispose<BooksRepository>((ref) {
-  final user = ref.read(userProvider).user.toNullable()!;
+  final user = ref.watch(userProvider).user.toNullable()!;
   final networkInfo = ref.watch(networkInfoProvider);
   final client = ref.watch(httpClientProvider);
 
