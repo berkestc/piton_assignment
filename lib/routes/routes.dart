@@ -29,78 +29,35 @@ class Routes {
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case landing:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const LandingPage(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const LandingPage(),
-                settings: settings,
-              );
-
+        return createRoute(settings: settings, page: const LandingPage());
       case splash:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const SplashScreen(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const SplashScreen(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const SplashScreen());
       case logIn:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const LogInPage(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const LogInPage(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const LogInPage());
       case register:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const RegisterPage(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const RegisterPage(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const RegisterPage());
       case home:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const HomePage(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const HomePage(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const HomePage());
       case category:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const CategoryPage(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const CategoryPage(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const CategoryPage());
       case bookDetails:
-        return Platform.isIOS
-            ? CupertinoPageRoute(
-                builder: (context) => const BookDetails(),
-                settings: settings,
-              )
-            : MaterialPageRoute(
-                builder: (context) => const BookDetails(),
-                settings: settings,
-              );
+        return createRoute(settings: settings, page: const BookDetails());
       default:
         return null;
     }
   }
+
+  PageRoute createRoute({
+    required RouteSettings settings,
+    required Widget page,
+  }) =>
+      Platform.isIOS
+          ? CupertinoPageRoute(
+              builder: (context) => page,
+              settings: settings,
+            )
+          : MaterialPageRoute(
+              builder: (context) => page,
+              settings: settings,
+            );
 }
