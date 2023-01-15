@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:piton_assignment/features/auth/presentation/providers/user_provider.dart';
 
 import '../../../../core/validation_error_visibility.dart';
 import '../../../../utils/validators.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../states/log_in_state.dart';
 import 'auth_repository_provider.dart';
+import 'user_provider.dart';
 
 class _LogInNotifier extends StateNotifier<LogInState> {
   final AuthRepository repository;
